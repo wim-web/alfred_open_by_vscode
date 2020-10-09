@@ -39,6 +39,17 @@ func gatherFiles(folders setting.Folders, searchWord string) (scriptFilters []al
 
 		for _, file := range files {
 
+			if searchWord == ":" {
+				scriptFilters = append(scriptFilters, alfred.ScriptFilter{
+					Type:     "file",
+					Title:    file.Name(),
+					SubTitle: filepath.Join(folder.Path, file.Name()),
+					Arg:      filepath.Join(folder.Path, file.Name()),
+					Valid:    true,
+				})
+				continue
+			}
+
 			if strings.Contains(file.Name(), searchWord) {
 				scriptFilters = append(scriptFilters, alfred.ScriptFilter{
 					Type:     "file",
